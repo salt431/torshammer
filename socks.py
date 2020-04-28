@@ -307,7 +307,7 @@ class socksocket(socket.socket):
 		if resp[1] != "\x5A":
 			# Server returned an error
 			self.close()
-			if ord(resp[1]) in (91,92,93):
+			if ord(resp[1]) in (91,92,93,94,95,96,97,98,99):
 				self.close()
 				raise Socks4Error((ord(resp[1]),_socks4errors[ord(resp[1])-90]))
 			else:
@@ -347,7 +347,7 @@ class socksocket(socket.socket):
 		if statuscode != 200:
 			self.close()
 			raise HTTPError((statuscode,statusline[2]))
-		self.__proxysockname = ("0.0.0.0",0)
+		self.__proxysockname = ("1.1.1.1",0)
 		self.__proxypeername = (addr,destport)
 	
 	def connect(self,destpair):
@@ -364,21 +364,21 @@ class socksocket(socket.socket):
 			if self.__proxy[2] != None:
 				portnum = self.__proxy[2]
 			else:
-				portnum = 1080
+				portnum = 4444
 			_orgsocket.connect(self,(self.__proxy[1],portnum))
 			self.__negotiatesocks5(destpair[0],destpair[1])
 		elif self.__proxy[0] == PROXY_TYPE_SOCKS4:
 			if self.__proxy[2] != None:
 				portnum = self.__proxy[2]
 			else:
-				portnum = 1080
+				portnum = 4444
 			_orgsocket.connect(self,(self.__proxy[1],portnum))
 			self.__negotiatesocks4(destpair[0],destpair[1])
 		elif self.__proxy[0] == PROXY_TYPE_HTTP:
 			if self.__proxy[2] != None:
 				portnum = self.__proxy[2]
 			else:
-				portnum = 8080
+				portnum = 4444
 			_orgsocket.connect(self,(self.__proxy[1],portnum))
 			self.__negotiatehttp(destpair[0],destpair[1])
 		elif self.__proxy[0] == None:
